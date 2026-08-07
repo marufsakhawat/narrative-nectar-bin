@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
+import Seo from "@/components/Seo";
 import { FileText, Download, BookOpen, BarChart3, Layout, Video } from "lucide-react";
 
 const resources = [
@@ -16,6 +17,11 @@ const resources = [
 const Resources = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Resources"
+        description="Free templates, guides, reports, and tools from MSD Insights to level up your marketing, sales, and customer success operations."
+        path="/resources"
+      />
       <Header />
       <main>
         <section className="container py-10">
