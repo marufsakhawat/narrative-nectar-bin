@@ -1,18 +1,36 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import Seo from "@/components/Seo";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Search as SearchIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import { allArticles, categories, sortByDateDesc } from "@/data/articles";
 
 const PAGE_SIZE = 6;
 
 const Blog = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCategory = searchParams.get("category");
+  const [activeCategory, setActiveCategory] = useState<string | null>(
+    initialCategory && categories.includes(initialCategory) ? initialCategory : null,
+  );
   const [page, setPage] = useState(1);
+
+  // Keep state in sync if the user navigates with a new ?category=
+  useEffect(() => {
+    const c = searchParams.get("category");
+    setActiveCategory(c && categories.includes(c) ? c : null);
+    setPage(1);
+  }, [searchParams]);
+
+  const selectCategory = (cat: string | null) => {
+    setActiveCategory(cat);
+    setPage(1);
+    if (cat) setSearchParams({ category: cat });
+    else setSearchParams({});
+  };
 
   const filtered = useMemo(() => {
     const base = activeCategory
@@ -24,11 +42,6 @@ const Blog = () => {
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
   const paginated = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
-
-  const selectCategory = (cat: string | null) => {
-    setActiveCategory(cat);
-    setPage(1);
-  };
 
   return (
     <div className="min-h-screen bg-background">
