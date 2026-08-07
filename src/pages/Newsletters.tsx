@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Seo from "@/components/Seo";
 import { Mail, Users, Calendar, Zap, TrendingUp, Target } from "lucide-react";
 
 const newsletters = [
@@ -22,6 +23,11 @@ const pastIssues = [
 const Newsletters = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Newsletters"
+        description="Curated insights from MSD Insights delivered straight to your inbox. Choose the topics that matter to you."
+        path="/newsletters"
+      />
       <Header />
       <main>
         <section className="bg-primary text-primary-foreground py-16">
