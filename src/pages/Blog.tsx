@@ -47,7 +47,7 @@ const Blog = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Blog"
-        description="Insights, strategies, and deep dives from the MSD Insights team and guest contributors."
+        description="Insights, strategies, and deep dives from the MsDevs Insights team and guest contributors."
         path="/blog"
       />
       <Header />
