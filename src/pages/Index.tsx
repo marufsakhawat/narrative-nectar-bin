@@ -9,7 +9,7 @@ import Seo from "@/components/Seo";
 const websiteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "MSD Insights",
+  name: "MsDevs Insights",
   url: "/",
   description: "B2B marketing, sales enablement, and customer success insights.",
 };
@@ -18,8 +18,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Seo
-        title="MSD Insights — Marketing Insights & Strategy"
-        description="Your central hub for marketing strategy, sales enablement, and customer success insights from the MSD Insights team."
+        title="MsDevs Insights — Marketing Insights & Strategy"
+        description="Your central hub for marketing strategy, sales enablement, and customer success insights from the MsDevs Insights team."
         path="/"
         jsonLd={websiteLd}
       />

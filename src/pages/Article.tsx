@@ -43,7 +43,7 @@ const Article = () => {
     image: article.image,
     publisher: {
       "@type": "Organization",
-      name: "MSD Insights",
+      name: "MsDevs Insights",
     },
     mainEntityOfPage: articlePath,
   };

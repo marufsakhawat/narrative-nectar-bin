@@ -30,16 +30,16 @@ export const allArticles: ArticleContent[] = [
     id: "featured",
     title: "The future of marketing isn't humans vs. AI — it's humans with AI",
     excerpt:
-      "MSD Insights CMO breaks down the new Loop playbook for integrating AI into your marketing strategy without losing the human touch.",
+      "MsDevs Insights CMO breaks down the new Loop playbook for integrating AI into your marketing strategy without losing the human touch.",
     author: "Jessica Martinez",
-    role: "VP of Marketing, MSD Insights",
+    role: "VP of Marketing, MsDevs Insights",
     date: "February 15, 2026",
     dateShort: "2/15/26",
     readTime: "12 min read",
     category: "Marketing Strategy",
     image: heroImage,
     body: [
-      "The conversation around AI in marketing has been dominated by fear. Will AI replace marketers? Will content lose its soul? Will algorithms decide everything we create? After spending two years integrating AI into our marketing operations at MSD Insights, I can tell you the answer is a resounding no.",
+      "The conversation around AI in marketing has been dominated by fear. Will AI replace marketers? Will content lose its soul? Will algorithms decide everything we create? After spending two years integrating AI into our marketing operations at MsDevs Insights, I can tell you the answer is a resounding no.",
       "But here's the thing — the real story is far more interesting than a simple binary. The future of marketing isn't about choosing between human creativity and machine efficiency. It's about combining them in ways that neither could achieve alone.",
       "## The Loop Playbook",
       "We call our framework 'The Loop' because it's designed to be cyclical. AI generates ideas and drafts. Humans refine, add nuance, and inject brand voice. AI then optimizes distribution and measures performance. Humans interpret the data and set new creative direction. Round and round we go, each cycle producing better results than the last.",
@@ -62,7 +62,7 @@ export const allArticles: ArticleContent[] = [
     excerpt:
       "Most content strategies fail because they focus on vanity metrics. Here's a framework that ties every piece of content to pipeline generation.",
     author: "Jessica Martinez",
-    role: "VP of Marketing, MSD Insights",
+    role: "VP of Marketing, MsDevs Insights",
     date: "February 20, 2026",
     dateShort: "2/20/26",
     readTime: "10 min read",

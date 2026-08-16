@@ -22,7 +22,7 @@ const Podcasts = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Podcasts"
-        description="The MSD Insights Podcast — weekly conversations with the minds shaping modern marketing."
+        description="The MsDevs Insights Podcast — weekly conversations with the minds shaping modern marketing."
         path="/podcasts"
       />
       <Header />
@@ -33,7 +33,7 @@ const Podcasts = () => {
               <Headphones className="h-7 w-7 text-primary" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground">The MSD Insights Podcast</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground">The MsDevs Insights Podcast</h1>
               <p className="mt-1 text-muted-foreground">Weekly conversations with the minds shaping modern marketing.</p>
             </div>
           </motion.div>
