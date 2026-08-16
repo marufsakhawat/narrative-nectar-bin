@@ -90,7 +90,12 @@ const Article = () => {
 
             <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <div>
-                <span className="font-medium text-foreground">{article.author}</span>
+                <Link
+                  to={`/author/${encodeURIComponent(article.author)}`}
+                  className="font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {article.author}
+                </Link>
                 <span className="block text-xs">{article.role}</span>
               </div>
               <span className="flex items-center gap-1">
