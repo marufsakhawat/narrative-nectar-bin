@@ -11,13 +11,13 @@ interface SeoProps {
 
 const Seo = ({
   title,
-  description = "MSD Insights — B2B marketing, sales enablement, and customer success insights from the MSD Insights team.",
+  description = "MsDevs Insights — B2B marketing, sales enablement, and customer success insights from the MsDevs Insights team.",
   path = "/",
   type = "website",
   image,
   jsonLd,
 }: SeoProps) => {
-  const fullTitle = title.includes("MSD Insights") ? title : `${title} — MSD Insights`;
+  const fullTitle = title.includes("MsDevs Insights") ? title : `${title} — MsDevs Insights`;
   const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (
