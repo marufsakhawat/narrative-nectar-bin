@@ -10,6 +10,7 @@ import Newsletters from "./pages/Newsletters";
 import Resources from "./pages/Resources";
 import Podcasts from "./pages/Podcasts";
 import Article from "./pages/Article";
+import Author from "./pages/Author";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/resources" element={<Resources />} />
           <Route path="/podcasts" element={<Podcasts />} />
           <Route path="/article/:id" element={<Article />} />
+          <Route path="/author/:authorName" element={<Author />} />
           <Route path="/search" element={<Search />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
