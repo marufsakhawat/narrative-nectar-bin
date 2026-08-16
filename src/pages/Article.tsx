@@ -43,7 +43,7 @@ const Article = () => {
     image: article.image,
     publisher: {
       "@type": "Organization",
-      name: "MSD Insights",
+      name: "MsDevs Insights",
     },
     mainEntityOfPage: articlePath,
   };
@@ -78,7 +78,7 @@ const Article = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <Link
               to="/blog"
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+              className="flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
             >
               <ArrowLeft className="h-4 w-4" /> Back to Blog
             </Link>

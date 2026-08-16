@@ -24,7 +24,7 @@ const Search = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Search Articles"
-        description="Search the MSD Insights library of marketing, sales, and customer success articles."
+        description="Search the MsDevs Insights library of marketing, sales, and customer success articles."
         path="/search"
       />
       <Header />
@@ -33,7 +33,7 @@ const Search = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground">Search</h1>
             <p className="mt-2 text-muted-foreground max-w-2xl">
-              Find articles, deep dives, and resources across the MSD Insights library.
+              Find articles, deep dives, and resources across the MsDevs Insights library.
             </p>
           </motion.div>
 

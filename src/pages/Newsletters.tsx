@@ -25,7 +25,7 @@ const Newsletters = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Newsletters"
-        description="Curated insights from MSD Insights delivered straight to your inbox. Choose the topics that matter to you."
+        description="Curated insights from MsDevs Insights delivered straight to your inbox. Choose the topics that matter to you."
         path="/newsletters"
       />
       <Header />

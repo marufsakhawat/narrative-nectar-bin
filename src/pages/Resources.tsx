@@ -19,7 +19,7 @@ const Resources = () => {
     <div className="min-h-screen bg-background">
       <Seo
         title="Resources"
-        description="Free templates, guides, reports, and tools from MSD Insights to level up your marketing, sales, and customer success operations."
+        description="Free templates, guides, reports, and tools from MsDevs Insights to level up your marketing, sales, and customer success operations."
         path="/resources"
       />
       <Header />
