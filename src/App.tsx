@@ -13,6 +13,10 @@ import Article from "./pages/Article";
 import Author from "./pages/Author";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import RequireAdmin from "./components/RequireAdmin";
+import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
 
@@ -30,18 +34,29 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/newsletters" element={<Newsletters />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/podcasts" element={<Podcasts />} />
-          <Route path="/article/:id" element={<Article />} />
-          <Route path="/author/:authorName" element={<Author />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/newsletters" element={<Newsletters />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/podcasts" element={<Podcasts />} />
+            <Route path="/article/:id" element={<Article />} />
+            <Route path="/author/:authorName" element={<Author />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <RequireAdmin>
+                  <AdminDashboard />
+                </RequireAdmin>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
