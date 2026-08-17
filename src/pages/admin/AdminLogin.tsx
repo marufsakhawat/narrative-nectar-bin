@@ -54,7 +54,7 @@ const AdminLogin = () => {
 
   return (
     <>
-      <Seo title="Admin Login" description="Sign in to manage MsDevs Insights articles." noindex />
+      <Seo title="Admin Login" description="Sign in to manage MsDevs Insights articles." />
       <main className="flex min-h-screen items-center justify-center bg-background px-4">
         <div className="w-full max-w-sm rounded-xl border border-border bg-card p-8">
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
