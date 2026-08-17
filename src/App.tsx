@@ -13,6 +13,10 @@ import Article from "./pages/Article";
 import Author from "./pages/Author";
 import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import RequireAdmin from "./components/RequireAdmin";
+import { AuthProvider } from "./hooks/useAuth";
 
 const queryClient = new QueryClient();
 
