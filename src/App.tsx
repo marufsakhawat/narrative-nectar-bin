@@ -34,18 +34,29 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/newsletters" element={<Newsletters />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/podcasts" element={<Podcasts />} />
-          <Route path="/article/:id" element={<Article />} />
-          <Route path="/author/:authorName" element={<Author />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/newsletters" element={<Newsletters />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/podcasts" element={<Podcasts />} />
+            <Route path="/article/:id" element={<Article />} />
+            <Route path="/author/:authorName" element={<Author />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <RequireAdmin>
+                  <AdminDashboard />
+                </RequireAdmin>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
