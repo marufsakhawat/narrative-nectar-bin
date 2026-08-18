@@ -5,20 +5,20 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import NewsletterSection from "@/components/NewsletterSection";
-import { Link } from "react-router-dom";
-import { searchArticles, sortByDateDesc, categories } from "@/data/articles";
+import ArticleCardGrid, { ArticleGridSkeleton } from "@/components/ArticleCardGrid";
+import { categories, matchesQuery } from "@/lib/articles";
+import { usePublishedArticles } from "@/hooks/useArticles";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const { data: articles, isLoading, error } = usePublishedArticles();
 
   const results = useMemo(() => {
-    let matches = searchArticles(query);
-    if (activeCategory) {
-      matches = matches.filter((a) => a.category === activeCategory);
-    }
-    return sortByDateDesc(matches);
-  }, [query, activeCategory]);
+    let matches = (articles ?? []).filter((a) => matchesQuery(a, query));
+    if (activeCategory) matches = matches.filter((a) => a.category === activeCategory);
+    return matches;
+  }, [query, activeCategory, articles]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -75,53 +75,27 @@ const Search = () => {
             ))}
           </div>
 
-          <p className="mt-6 text-sm text-muted-foreground">
-            {results.length} {results.length === 1 ? "result" : "results"}
-          </p>
-
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {results.map((post, i) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: Math.min(i * 0.05, 0.4) }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="group"
-              >
-                <Link to={`/article/${post.id}`} className="block">
-                  <div className="overflow-hidden rounded-xl">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full aspect-[16/10] object-cover transition-transform duration-300 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="mt-3 space-y-2">
-                    <span className="text-xs font-semibold text-primary">{post.category}</span>
-                    <h2 className="text-base font-bold leading-snug text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                      {post.title}
-                    </h2>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground pt-1">
-                      <span className="font-medium">{post.author}</span>
-                      <span>{post.dateShort}</span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.article>
-            ))}
-          </div>
-
-          {results.length === 0 && (
-            <div className="mt-16 text-center">
-              <p className="text-lg font-medium text-foreground">No results found</p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Try a different search term or browse all categories.
+          {isLoading ? (
+            <ArticleGridSkeleton />
+          ) : error ? (
+            <p className="mt-16 text-center text-sm text-muted-foreground">
+              We couldn&apos;t load articles right now. Please try again later.
+            </p>
+          ) : (
+            <>
+              <p className="mt-6 text-sm text-muted-foreground">
+                {results.length} {results.length === 1 ? "result" : "results"}
               </p>
-            </div>
+              <ArticleCardGrid articles={results} />
+              {results.length === 0 && (
+                <div className="mt-16 text-center">
+                  <p className="text-lg font-medium text-foreground">No results found</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Try a different search term or browse all categories.
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </section>
         <NewsletterSection />

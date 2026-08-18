@@ -1,15 +1,35 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { allArticles, sortByDateDesc } from "@/data/articles";
+import { Skeleton } from "@/components/ui/skeleton";
+import { usePublishedArticles } from "@/hooks/useArticles";
 
 const ContentGrid = () => {
-  const latest = sortByDateDesc(allArticles).slice(0, 4);
+  const { data, isLoading } = usePublishedArticles();
+  const latest = (data ?? []).slice(0, 4);
+
+  if (isLoading) {
+    return (
+      <section className="container py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="space-y-3">
+              <Skeleton className="w-full aspect-square rounded-xl" />
+              <Skeleton className="h-3 w-24" />
+              <Skeleton className="h-4 w-full" />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (latest.length === 0) return null;
 
   return (
     <section className="container py-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {latest.map((article, i) => (
-          <Link key={article.id} to={`/article/${article.id}`}>
+          <Link key={article.id} to={`/article/${article.slug}`}>
             <motion.article
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

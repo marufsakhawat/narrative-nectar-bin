@@ -1,18 +1,49 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { getArticleById, allArticles, sortByDateDesc } from "@/data/articles";
+import { Skeleton } from "@/components/ui/skeleton";
+import { usePublishedArticles } from "@/hooks/useArticles";
 
 const HeroSection = () => {
-  const featured = getArticleById("featured")!;
-  const featuredPosts = sortByDateDesc(
-    allArticles.filter((a) => a.id !== "featured"),
-  ).slice(0, 5);
+  const { data, isLoading } = usePublishedArticles();
+  const articles = data ?? [];
+  const featured = articles[0];
+  const featuredPosts = articles.slice(1, 6);
+
+  if (isLoading) {
+    return (
+      <section className="container py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8">
+          <div className="space-y-4">
+            <Skeleton className="w-full aspect-[16/9] rounded-xl" />
+            <Skeleton className="h-8 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+          </div>
+          <div className="hidden lg:block space-y-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-12 w-full" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!featured) {
+    return (
+      <section className="container py-20 text-center">
+        <h1 className="text-2xl font-bold text-foreground">No published articles yet</h1>
+        <p className="mt-2 text-muted-foreground">
+          New stories from the MsDevs Insights team are on the way — check back soon.
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section className="container py-8 lg:py-12">
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8">
         {/* Featured Article */}
-        <Link to={`/article/${featured.id}`} className="block">
+        <Link to={`/article/${featured.slug}`} className="block">
           <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -57,7 +88,7 @@ const HeroSection = () => {
           <ul className="divide-y divide-border">
             {featuredPosts.map((post) => (
               <li key={post.id} className="py-4 group cursor-pointer">
-                <Link to={`/article/${post.id}`} className="block">
+                <Link to={`/article/${post.slug}`} className="block">
                   <h3 className="text-sm font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
                     {post.title}
                   </h3>
