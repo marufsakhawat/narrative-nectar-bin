@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { mapArticle, type Article } from "@/lib/articles";
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export const usePublishedArticles = () =>
   useQuery({
     queryKey: ["articles", "published"],
@@ -16,21 +18,25 @@ export const usePublishedArticles = () =>
     },
   });
 
-export const useArticleBySlug = (slug: string | undefined) =>
+/** Look up a published article by slug (preferred) or by uuid. */
+export const usePublishedArticle = (key: string | undefined) =>
   useQuery({
-    queryKey: ["article", slug],
-    enabled: !!slug,
+    queryKey: ["article", "public", key],
+    enabled: !!key,
     queryFn: async (): Promise<Article | null> => {
+      const column = UUID_RE.test(key!) ? "id" : "slug";
       const { data, error } = await supabase
         .from("articles")
         .select("*")
-        .eq("slug", slug!)
         .eq("status", "published")
+        .eq(column, key!)
         .maybeSingle();
       if (error) throw error;
       return data ? mapArticle(data) : null;
     },
   });
+
+export const useArticleBySlug = (slug: string | undefined) => usePublishedArticle(slug);
 
 /** All articles including drafts — only readable by admins/authors. */
 export const useAllArticles = () =>

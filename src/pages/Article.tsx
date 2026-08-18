@@ -4,14 +4,35 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsletterSection from "@/components/NewsletterSection";
 import Seo from "@/components/Seo";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
-import { getArticleById, getRelatedArticles } from "@/data/articles";
+import { usePublishedArticle, usePublishedArticles } from "@/hooks/useArticles";
 
 const Article = () => {
   const { id } = useParams();
-  const article = getArticleById(id ?? "");
+  const { data: article, isLoading } = usePublishedArticle(id);
+  const { data: all } = usePublishedArticles();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Seo title="Loading article" path={`/article/${id ?? ""}`} />
+        <Header />
+        <main className="container max-w-3xl mx-auto py-10 px-6 space-y-4">
+          <Skeleton className="h-4 w-28" />
+          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-4 w-1/2" />
+          <Skeleton className="w-full aspect-[16/9] rounded-xl" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-2/3" />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!article) {
     return (
@@ -29,8 +50,10 @@ const Article = () => {
     );
   }
 
-  const related = getRelatedArticles(article.id, 3);
-  const articlePath = `/article/${article.id}`;
+  const related = (all ?? [])
+    .filter((a) => a.id !== article.id && a.category === article.category)
+    .slice(0, 3);
+  const articlePath = `/article/${article.slug}`;
 
   const articleLd = {
     "@context": "https://schema.org",
@@ -38,7 +61,7 @@ const Article = () => {
     headline: article.title,
     description: article.excerpt,
     author: { "@type": "Person", name: article.author, jobTitle: article.role },
-    datePublished: article.date,
+    datePublished: article.publishedAt,
     articleSection: article.category,
     image: article.image,
     publisher: {
@@ -162,7 +185,7 @@ const Article = () => {
                   whileHover={{ y: -4 }}
                   className="group"
                 >
-                  <Link to={`/article/${rel.id}`} className="block">
+                  <Link to={`/article/${rel.slug}`} className="block">
                     <div className="overflow-hidden rounded-xl">
                       <img
                         src={rel.image}

@@ -15,6 +15,7 @@ import Search from "./pages/Search";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import ArticleForm from "./pages/admin/ArticleForm";
 import RequireAdmin from "./components/RequireAdmin";
 import { AuthProvider } from "./hooks/useAuth";
 
@@ -51,6 +52,22 @@ const App = () => (
               element={
                 <RequireAdmin>
                   <AdminDashboard />
+                </RequireAdmin>
+              }
+            />
+            <Route
+              path="/admin/articles/new"
+              element={
+                <RequireAdmin>
+                  <ArticleForm />
+                </RequireAdmin>
+              }
+            />
+            <Route
+              path="/admin/articles/:id/edit"
+              element={
+                <RequireAdmin>
+                  <ArticleForm />
                 </RequireAdmin>
               }
             />
